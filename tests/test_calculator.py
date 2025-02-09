@@ -1,6 +1,7 @@
 '''My Calculator Test'''
 import pytest
 from calculator.operation import Operation
+from calculator.calculation import Calculation
 
 def test_addition():
     '''Test for working addition function'''
@@ -41,3 +42,19 @@ def test_division_by_zero():
     '''Test for dividing by zero'''
     with pytest.raises(ValueError, match="Division by zero"):
         Operation.divide(3,0)
+
+def test_calculation_add():
+    '''Test for adding inside of a Calculation instance'''
+    assert Calculation(2, 3, Operation.add).perform() == 5
+
+def test_calculation_subtract():
+    '''Test for subtracting inside of a Calculation instance'''
+    assert Calculation(2, 3, Operation.subtract).perform() == -1
+
+def test_calculation_multiply():
+    '''Test for multiplying inside of a Calculation instance'''
+    assert Calculation(4,5, Operation.multiply).perform() == 20
+
+def test_calculation_divide():
+    '''Test for dividing inside of a Calculation instance'''
+    assert Calculation(4 , 2, Operation.divide).perform() == 2
