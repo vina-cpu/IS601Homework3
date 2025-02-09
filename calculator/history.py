@@ -29,9 +29,11 @@ class History:
 
     @classmethod
     def get_index_calc(cls, index: int) -> Calculation:
-        return cls.hist[index]            
+        if len(cls.hist) > index:
+            return cls.hist[index]
+        return None            
 
     @classmethod
-    def find_operations(cls, operationName: str) -> List[Calculation]:
-        return [calc for calc in cls.hist if calc.operation.__name__ == operationName]
+    def find_operations(cls, operationName: Callable[[float, float], float]) -> List[Calculation]:
+        return [calc for calc in cls.hist if calc.operation.__name__ == operationName.__name__]
       
