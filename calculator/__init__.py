@@ -1,1 +1,1 @@
-from calculator.functions import add, subtract
+from calculator.functions import add, subtract, multiply, divide
