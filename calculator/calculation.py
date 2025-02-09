@@ -9,3 +9,16 @@ class Calculation:
         
     def perform(self) -> float:
         return self.operation(self.a, self.b)
+    
+    @staticmethod
+    def create(a: float, b: float, oper: Callable[[float, float], float]):
+        return Calculation(a, b, oper)
+    
+    def getA(self) -> float:
+        return self.a
+    
+    def getB(self) -> float:
+        return self.b
+    
+    def getOperation(self) -> float:
+        return self.operation
