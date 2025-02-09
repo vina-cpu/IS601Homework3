@@ -12,3 +12,12 @@
 1. pytest
 2. pytest --pylint
 3. pytest --pylint --cov
+
+## requirements
+1. add, subtract, multiply, divide
+2. throw exception for divide by zero and test that the exception is thrown
+3. use at least one class, at least one static method, at least one class method
+4. it needs to store a history of calculations, so that you can retrieve the last calculation, add a calculation
+5. it needs to have 100% test coverage, pass pylint, and you need to do your best to not repeat any lines of code
+6. you should use type hints for input parameter types and return types 
+7. implement a pytest fixture
