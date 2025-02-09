@@ -58,3 +58,15 @@ def test_calculation_multiply():
 def test_calculation_divide():
     '''Test for dividing inside of a Calculation instance'''
     assert Calculation(4 , 2, Operation.divide).perform() == 2
+
+def test_calculation_geta():
+    '''Test for getting a from a Calculation instance'''
+    assert Calculation(3, 1, Operation.add).getA() == 3
+
+def test_calculation_getb():
+    '''Test for getting b from a Calculation instance'''
+    assert Calculation(3, 1, Operation.subtract).getB() == 1
+
+def test_calculation_getoperation():
+    '''Test for getting operation from a Calculation instance'''
+    assert Calculation(3,1,Operation.multiply).getOperation().__name__==Operation.multiply.__name__
