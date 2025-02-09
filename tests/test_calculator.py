@@ -1,4 +1,5 @@
 '''My Calculator Test'''
+import pytest
 from calculator import add, subtract, multiply, divide
 
 def test_addition():
@@ -20,4 +21,5 @@ def test_division():
 
 def test_division_by_zero():
     '''Test for dividing by zero'''
-    assert divide(3,1) == 3
+    with pytest.raises(ValueError, match="Division by zero"):
+        divide(3,0)
