@@ -5,7 +5,6 @@ from calculator.history import History
 from calculator.operation import Operation
 from calculator import Calculator
 
-
 @pytest.fixture
 def setup_history():
     '''clear history and add a couple calculations to set up the history'''
