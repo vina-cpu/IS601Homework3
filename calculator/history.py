@@ -4,3 +4,4 @@ from calculator.calculation import Calculation
 
 class History:
     hist: List[Calculation] = []
+    
