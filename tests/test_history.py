@@ -1,8 +1,9 @@
-'''My History Test'''
+'''My History and Calculator Test'''
 import pytest
 from calculator.calculation import Calculation
 from calculator.history import History
 from calculator.operation import Operation
+from calculator import Calculator
 
 
 @pytest.fixture
@@ -60,3 +61,28 @@ def test_find_operations(setup_history):
     '''test for finding all the operations of a certain type'''
     didfind = History.find_operations(Operation.add)
     assert len(didfind) == 1
+
+def test_newcalculation():
+    '''test for using newCalculation in Calculator'''
+    assert Calculator.newCalculation(4, 3, Operation.add) == 7
+
+def test_calculator_add(setup_history):
+    '''test for using add method in Calculator'''
+    assert Calculator.add(2, 3) == 5
+    assert len(History.get_history()) == 3
+
+def test_calculator_subtract(setup_history):
+    '''test for using subtract method in Calculator'''
+    assert Calculator.subtract(5, 6) == -1
+    assert Calculator.subtract(1, -1) == 2
+    assert len(History.get_history()) == 4
+
+def test_calculator_multiply(setup_history):
+    '''test for using multiply method in Calculator'''
+    assert Calculator.multiply(1, 1) == 1
+    assert len(History.get_history()) == 3
+
+def test_calculator_divide(setup_history):
+    '''test for using divide method in Calculator'''
+    assert Calculator.divide(1, 2) == 0.5
+    assert len(History.get_history()) == 3
