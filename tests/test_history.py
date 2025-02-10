@@ -9,13 +9,13 @@ from calculator import Calculator
 def setup_history():
     '''clear history and add a couple calculations to set up the history'''
     History.clear_history()
-    History.add_calculation(Calculation(2, 3, Operation.add))
-    History.add_calculation(Calculation(5, 4, Operation.multiply))
+    History.append_calc(Calculation(2, 3, Operation.add))
+    History.append_calc(Calculation(5, 4, Operation.multiply))
 
 def test_add_calculation(setup_history):
     '''test for adding a calculation to History class, and also testing the create Calculation'''
     newcalc = Calculation.newCalc(4, 3, Operation.add)
-    History.add_calculation(newcalc)
+    History.append_calc(newcalc)
     assert History.get_last_calc() == newcalc
 
 def test_get_history(setup_history):
@@ -55,11 +55,6 @@ def test_get_index_calc(setup_history):
 def test_get_index_calc_with_no_history(setup_history):
     '''test for getting a calculation at an index outside of length of hist'''
     assert History.get_index_calc(4) is None
-
-def test_find_operations(setup_history):
-    '''test for finding all the operations of a certain type'''
-    didfind = History.find_operations(Operation.add)
-    assert len(didfind) == 1
 
 def test_newcalculation():
     '''test for using newCalculation in Calculator'''

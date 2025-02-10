@@ -9,7 +9,7 @@ class Calculator:
     @staticmethod
     def newCalculation(a: float, b: float, oper: Callable[[float, float], float]) -> float:
         newCalc = Calculation.newCalc(a, b, oper)
-        History.add_calculation(newCalc)
+        History.append_calc(newCalc)
         return newCalc.do()
     
     @staticmethod

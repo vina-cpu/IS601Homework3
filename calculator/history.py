@@ -6,7 +6,7 @@ class History:
     hist: List[Calculation] = []
   
     @classmethod
-    def add_calculation(cls, calc: Calculation):
+    def append_calc(cls, calc: Calculation):
         cls.hist.append(calc)
 
     @classmethod
@@ -32,12 +32,3 @@ class History:
         if len(cls.hist) > index:
             return cls.hist[index]
         return None            
-
-    @classmethod
-    def find_operations(cls, operationName: Callable[[float, float], float]) -> List[Calculation]:
-        mylist: List = []
-        for calc in cls.hist: 
-            if calc.operation.__name__ == operationName.__name__:
-                mylist.append(calc)
-        return mylist
-      
