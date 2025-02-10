@@ -45,19 +45,19 @@ def test_division_by_zero():
 
 def test_calculation_add():
     '''Test for adding inside of a Calculation instance'''
-    assert Calculation(2, 3, Operation.add).perform() == 5
+    assert Calculation(2, 3, Operation.add).do() == 5
 
 def test_calculation_subtract():
     '''Test for subtracting inside of a Calculation instance'''
-    assert Calculation(2, 3, Operation.subtract).perform() == -1
+    assert Calculation(2, 3, Operation.subtract).do() == -1
 
 def test_calculation_multiply():
     '''Test for multiplying inside of a Calculation instance'''
-    assert Calculation(4,5, Operation.multiply).perform() == 20
+    assert Calculation(4,5, Operation.multiply).do() == 20
 
 def test_calculation_divide():
     '''Test for dividing inside of a Calculation instance'''
-    assert Calculation(4 , 2, Operation.divide).perform() == 2
+    assert Calculation(4 , 2, Operation.divide).do() == 2
 
 def test_calculation_geta():
     '''Test for getting a from a Calculation instance'''

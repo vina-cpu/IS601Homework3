@@ -7,7 +7,7 @@ class Calculation:
         self.b = b
         self.operation = operation
         
-    def perform(self) -> float:
+    def do(self) -> float:
         return self.operation(self.a, self.b)
     
     @staticmethod

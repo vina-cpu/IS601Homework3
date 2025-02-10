@@ -35,5 +35,9 @@ class History:
 
     @classmethod
     def find_operations(cls, operationName: Callable[[float, float], float]) -> List[Calculation]:
-        return [calc for calc in cls.hist if calc.operation.__name__ == operationName.__name__]
+        mylist: List = []
+        for calc in cls.hist: 
+            if calc.operation.__name__ == operationName.__name__:
+                mylist.append(calc)
+        return mylist
       
