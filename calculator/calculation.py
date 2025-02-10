@@ -11,7 +11,7 @@ class Calculation:
         return self.operation(self.a, self.b)
     
     @staticmethod
-    def create(a: float, b: float, oper: Callable[[float, float], float]):
+    def newCalc(a: float, b: float, oper: Callable[[float, float], float]):
         return Calculation(a, b, oper)
     
     def getA(self) -> float:

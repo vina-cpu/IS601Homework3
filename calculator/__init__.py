@@ -8,7 +8,7 @@ class Calculator:
     #merging the calculations with the history, so whenever you call this it does the calculation and adds it to the history too
     @staticmethod
     def newCalculation(a: float, b: float, oper: Callable[[float, float], float]) -> float:
-        newCalc = Calculation.create(a, b, oper)
+        newCalc = Calculation.newCalc(a, b, oper)
         History.add_calculation(newCalc)
         return newCalc.perform()
     

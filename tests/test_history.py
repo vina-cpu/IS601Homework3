@@ -14,7 +14,7 @@ def setup_history():
 
 def test_add_calculation(setup_history):
     '''test for adding a calculation to History class, and also testing the create Calculation'''
-    newcalc = Calculation.create(4, 3, Operation.add)
+    newcalc = Calculation.newCalc(4, 3, Operation.add)
     History.add_calculation(newcalc)
     assert History.get_last_calc() == newcalc
 
