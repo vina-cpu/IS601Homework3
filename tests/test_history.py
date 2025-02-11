@@ -80,3 +80,29 @@ def test_calculator_divide(setup_history):
     '''test for using divide method in Calculator'''
     assert Calculator.divide(1, 2) == 0.5
     assert len(History.get_history()) == 3
+
+def test_calculator_redo_last_a(setup_history):
+    '''test for changing the last calculation's a and making a new calculation'''
+    assert Calculator.redoLastCalcA(1) == 4
+    assert len(History.get_history()) == 3
+    assert History.get_index_calc(1).getA() == 5
+
+def test_calculator_redo_last_b(setup_history):
+    '''test for changing the last calculation's b and making a new calculation'''
+    assert Calculator.redoLastCalcB(1) == 5
+
+def test_calculator_redo_last_operation(setup_history):
+    '''test for changing the last calculation's operation and making a new calculation'''
+    assert Calculator.redoLastCalcOperation(Operation.add) == 9
+
+def test_calculator_redo_a(setup_history):
+    '''test for changing a calculation's a and making a new calculation'''
+    assert Calculator.redoCalcA(History.get_last_calc(), 3) == 12
+
+def test_calculator_redo_b(setup_history):
+    '''test for changing a calculation's b and making a new calculation'''
+    assert Calculator.redoCalcB(Calculation(1,2,Operation.add), 4) == 5
+
+def test_calculator_redo_operation(setup_history):
+    '''test for changing a calculation's operation and making a new calculation'''
+    assert Calculator.redoCalcOperation(History.get_index_calc(0), Operation.subtract) == -1

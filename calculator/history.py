@@ -4,7 +4,7 @@ from calculator.calculation import Calculation
 
 class History:
     hist: List[Calculation] = []
-  
+
     @classmethod
     def append_calc(cls, calc: Calculation):
         cls.hist.append(calc)

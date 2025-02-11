@@ -19,11 +19,38 @@ class Calculator:
     @staticmethod
     def subtract(a: float, b: float) -> float:
         return Calculator.newCalculation(a, b, Operation.subtract)
-    
+   
     @staticmethod
     def multiply(a: float, b: float) -> float:
         return Calculator.newCalculation(a, b, Operation.multiply)
-    
+   
     @staticmethod
     def divide(a: float, b: float) -> float:
         return Calculator.newCalculation(a, b, Operation.divide)
+    
+    @staticmethod
+    def redoLastCalcA(a: float) -> float:
+        lastCalc = History.get_last_calc()
+        return Calculator.newCalculation(a , lastCalc.getB(), lastCalc.getOperation())
+
+    @staticmethod
+    def redoLastCalcB(b: float) -> float:
+        lastCalc = History.get_last_calc()
+        return Calculator.newCalculation(lastCalc.getA(), b, lastCalc.getOperation())
+
+    @staticmethod
+    def redoLastCalcOperation(oper: Callable[[float, float], float]) -> float:
+        lastCalc = History.get_last_calc()
+        return Calculator.newCalculation(lastCalc.getA(), lastCalc.getB(), oper)
+
+    @staticmethod
+    def redoCalcA(calc: Calculation, a: float) -> float:
+        return Calculator.newCalculation(a, calc.getB(), calc.getOperation())
+   
+    @staticmethod
+    def redoCalcB(calc: Calculation, b: float) -> float:
+        return Calculator.newCalculation(calc.getA(), b, calc.getOperation())
+
+    @staticmethod
+    def redoCalcOperation(calc: Calculation, oper: Callable[[float, float], float]) -> float:
+        return Calculator.newCalculation(calc.getA(), calc.getB(), oper)
