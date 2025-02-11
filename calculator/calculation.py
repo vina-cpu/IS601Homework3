@@ -14,6 +14,9 @@ class Calculation:
     def newCalc(a: float, b: float, oper: Callable[[float, float], float]):
         return Calculation(a, b, oper)
     
+    #can't make any of these staticmethods because they all use self, and
+    #can't make any of these classmethods because i want this to be for
+    #each instance only
     def getA(self) -> float:
         return self.a
     
@@ -22,3 +25,12 @@ class Calculation:
     
     def getOperation(self) -> float:
         return self.operation
+    
+    def setA(self, newa: float):
+        self.a = newa
+    
+    def setB(self, newb: float):
+        self.b = newb
+    
+    def setOperation(self, newOperation: Callable[[float, float], float]):
+        self.operation = newOperation

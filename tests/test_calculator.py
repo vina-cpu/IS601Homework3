@@ -70,3 +70,21 @@ def test_calculation_getb():
 def test_calculation_getoperation():
     '''Test for getting operation from a Calculation instance'''
     assert Calculation(3,1,Operation.multiply).getOperation().__name__==Operation.multiply.__name__
+
+def test_calculation_seta():
+    '''Test for setting a in a Calculation instance'''
+    mycalc = Calculation(3, 1, Operation.subtract)
+    mycalc.setA(2)
+    assert mycalc.getA() == 2
+
+def test_calculation_setb():
+    '''Test for setting b in a Calculation instance'''
+    mycalc = Calculation(3, 1, Operation.subtract)
+    mycalc.setB(2)
+    assert mycalc.getB() == 2
+
+def test_calculation_setoperation():
+    '''Test for setting a new operation in a Calculation instance'''
+    mycalc = Calculation(3, 1, Operation.subtract)
+    mycalc.setOperation(Operation.add)
+    assert mycalc.getOperation().__name__ == Operation.add.__name__
