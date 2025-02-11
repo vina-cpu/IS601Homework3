@@ -1,4 +1,4 @@
-'''My History and Calculator Test'''
+'''My Tests History Class and Calculator Class'''
 import pytest
 from calculator.calculation import Calculation
 from calculator.history import History

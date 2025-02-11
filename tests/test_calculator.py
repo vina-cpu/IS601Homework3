@@ -1,4 +1,4 @@
-'''My Calculator Test'''
+'''My Tests for Operation Class and Calculation Class'''
 import pytest
 from calculator.operation import Operation
 from calculator.calculation import Calculation

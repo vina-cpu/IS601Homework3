@@ -13,6 +13,9 @@
 2. pytest --pylint
 3. pytest --pylint --cov
 
+-note: tests for the operation and calculation classes are in test_calculator.py, and tests for the history and calculator classes are in test_history.py
+The Calculator class is in __init__.py, and it is the main class for running calculations, history, and operations in one go
+
 ## requirements
 1. add, subtract, multiply, divide
 2. throw exception for divide by zero and test that the exception is thrown
