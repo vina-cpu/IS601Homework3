@@ -1,5 +1,6 @@
 '''My Tests for Operation Class and Calculation Class'''
 import pytest
+from faker import Faker
 from calculator.operation import Operation
 from calculator.calculation import Calculation
 
@@ -88,3 +89,10 @@ def test_calculation_setoperation():
     mycalc = Calculation(3, 1, Operation.subtract)
     mycalc.setOperation(Operation.add)
     assert mycalc.getOperation().__name__ == Operation.add.__name__
+
+def test_faker_addition():
+    fake = Faker()
+    a: float = fake.random_number()
+    b: float = fake.random_number()
+    assert Operation.add(a, b) == a + b
+    
