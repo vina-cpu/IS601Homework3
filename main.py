@@ -29,3 +29,6 @@ def main():
     
     _, a, b, oper = sys.argv
     useCalculator(a, b, oper)
+
+if __name__ == '__main__':
+    main()
