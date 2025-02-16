@@ -1,9 +1,14 @@
 '''My Tests History Class and Calculator Class'''
 import pytest
+from typing import Callable
+from faker import Faker
 from calculator.calculation import Calculation
 from calculator.history import History
 from calculator.operation import Operation
 from calculator import Calculator
+
+fake = Faker()
+operationsList = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide]
 
 @pytest.fixture
 def setup_history():
@@ -18,6 +23,12 @@ def test_add_calculation(setup_history):
     History.append_calc(newcalc)
     assert History.get_last_calc() == newcalc
 
+def test_random_add_calculation(setup_history):
+    '''test for adding fake calculation with any values'''
+    newcalc = Calculation.newCalc(fake.random_number(), fake.random_number(), fake.random_element(operationsList))
+    History.append_calc(newcalc)
+    assert History.get_last_calc() == newcalc
+
 def test_get_history(setup_history):
     '''test for getting history from setup_history'''
     history = History.get_history()
@@ -27,6 +38,8 @@ def test_set_history(setup_history):
     '''test for setting history'''
     History.set_history([Calculation(1, 1, Operation.multiply)])
     assert len(History.get_history()) == 1
+    History.set_history([Calculation(fake.random_number(), fake.random_number(), fake.random_element(operationsList)), Calculation(fake.random_number(), fake.random_number(), fake.random_element(operationsList))])
+    assert len(History.get_history()) == 2
 
 def test_clear_history(setup_history):
     '''test for clearing history'''
@@ -59,27 +72,46 @@ def test_get_index_calc_with_no_history(setup_history):
 def test_newcalculation():
     '''test for using newCalculation in Calculator'''
     assert Calculator.newCalculation(4, 3, Operation.add) == 7
+    a: float = fake.random_number()
+    b: float = fake.random_number()
+    oper: Callable[[float, float], float] = fake.random_element(operationsList)
+    assert Calculator.newCalculation(a, b, oper) == oper(a, b)
 
 def test_calculator_add(setup_history):
     '''test for using add method in Calculator'''
     assert Calculator.add(2, 3) == 5
     assert len(History.get_history()) == 3
+    a: float = fake.random_number()
+    b: float = fake.random_number()
+    assert Calculator.add(a, b) == a + b
+    assert len(History.get_history()) == 4
 
 def test_calculator_subtract(setup_history):
     '''test for using subtract method in Calculator'''
     assert Calculator.subtract(5, 6) == -1
     assert Calculator.subtract(1, -1) == 2
     assert len(History.get_history()) == 4
+    a: float = fake.random_number()
+    b: float = fake.random_number()
+    assert Calculator.subtract(a, b) == a - b
+    assert len(History.get_history()) == 5
 
 def test_calculator_multiply(setup_history):
     '''test for using multiply method in Calculator'''
     assert Calculator.multiply(1, 1) == 1
     assert len(History.get_history()) == 3
+    a: float = fake.random_number()
+    b: float = fake.random_number()
+    assert Calculator.multiply(a, b) == a * b
+    assert len(History.get_history()) == 4
 
 def test_calculator_divide(setup_history):
     '''test for using divide method in Calculator'''
     assert Calculator.divide(1, 2) == 0.5
     assert len(History.get_history()) == 3
+    a: float = fake.random_number()
+    assert Calculator.divide(a, 1) == a 
+    assert len(History.get_history()) == 4
 
 def test_calculator_redo_last_a(setup_history):
     '''test for changing the last calculation's a and making a new calculation'''
