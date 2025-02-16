@@ -1,0 +1,1 @@
+'''My Tests for conftest.py and generating an amount of records via input'''
