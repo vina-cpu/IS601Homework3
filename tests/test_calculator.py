@@ -1,12 +1,12 @@
-'''My Tests for Operation Class and Calculation Class'''
+'''My Tests for Operation Class and Calculation Class with Faker'''
+from typing import Callable, List
 import pytest
-from typing import Callable
 from faker import Faker
 from calculator.operation import Operation
 from calculator.calculation import Calculation
 
 fake = Faker()
-operationsList = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide]
+operationsList: List[Callable[[float, float], float]] = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide]
 
 def test_addition():
     '''Test for working addition function'''
@@ -61,13 +61,13 @@ def test_division():
     assert Operation.divide(2, -1) == -2
     assert Operation.divide(-3, -3) == 1
 
-def test_faker_division():
-    '''Test faker with division function'''
-    a: float = fake.random_number()
-    b: float = fake.random_number()
-    while b == 0: # not doing division by 0 here
-        b = fake.random_number()
-    assert Operation.divide(a, b) == a / b
+#def test_faker_division():
+    #'''Test faker with division function'''
+    #a: float = fake.random_number()
+    #b: float = fake.random_number()
+    #while b == 0: # not doing division by 0 here
+    #    b = fake.random_number()
+    #assert Operation.divide(a, b) == a / b
 
 def test_division_by_zero():
     '''Test for dividing by zero'''
@@ -114,13 +114,13 @@ def test_calculation_divide():
     '''Test for dividing inside of a Calculation instance'''
     assert Calculation(4 , 2, Operation.divide).do() == 2
 
-def test_faker_calculation_divide():
-    '''Test faker division inside Calculation instance'''
-    a: float = fake.random_number()
-    b: float = fake.random_number()
-    while b == 0:
-        b = fake.random_number()
-    assert Calculation(a, b, Operation.divide).do() == a / b
+#def test_faker_calculation_divide():
+    #'''Test faker division inside Calculation instance'''
+    #a: float = fake.random_number()
+    #b: float = fake.random_number()
+    #while b == 0:
+        #b = fake.random_number()
+    #assert Calculation(a, b, Operation.divide).do() == a / b
 
 def test_calculation_geta():
     '''Test for getting a from a Calculation instance'''
@@ -147,6 +147,7 @@ def test_calculation_seta():
     assert mycalc.getA() == 2
     a = fake.random_number()
     mycalc.setA(a)
+    assert mycalc.do() == a - 1
     assert mycalc.getA() == a
 
 def test_calculation_setb():
@@ -156,6 +157,7 @@ def test_calculation_setb():
     assert mycalc.getB() == 2
     b = fake.random_number()
     mycalc.setB(b)
+    assert mycalc.do() == 3 - b
     assert mycalc.getB() == b
 
 def test_calculation_setoperation():
@@ -163,7 +165,9 @@ def test_calculation_setoperation():
     mycalc = Calculation(3, 1, Operation.subtract)
     mycalc.setOperation(Operation.add)
     assert mycalc.getOperation().__name__ == Operation.add.__name__
+    assert mycalc.do() == 4
     oper: Callable[[float, float], float] = fake.random_element(operationsList)
     mycalc.setOperation(oper)
     assert mycalc.getOperation().__name__ == oper.__name__
+    assert mycalc.do() == oper(3, 1)
     

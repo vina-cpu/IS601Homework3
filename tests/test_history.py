@@ -1,6 +1,6 @@
-'''My Tests History Class and Calculator Class'''
+'''My Tests History Class and Calculator Class With Faker'''
+from typing import Callable, List
 import pytest
-from typing import Callable
 from faker import Faker
 from calculator.calculation import Calculation
 from calculator.history import History
@@ -8,7 +8,7 @@ from calculator.operation import Operation
 from calculator import Calculator
 
 fake = Faker()
-operationsList = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide]
+operationsList: List[Callable[[float, float], float]] = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide]
 
 @pytest.fixture
 def setup_history():
@@ -110,7 +110,7 @@ def test_calculator_divide(setup_history):
     assert Calculator.divide(1, 2) == 0.5
     assert len(History.get_history()) == 3
     a: float = fake.random_number()
-    assert Calculator.divide(a, 1) == a 
+    assert Calculator.divide(a, 1) == a
     assert len(History.get_history()) == 4
 
 def test_calculator_redo_last_a(setup_history):
@@ -118,33 +118,64 @@ def test_calculator_redo_last_a(setup_history):
     assert Calculator.redoLastCalcA(1) == 4
     assert len(History.get_history()) == 3
     assert History.get_index_calc(1).getA() == 5
+    a: float = fake.random_number()
+    assert Calculator.redoLastCalcA(a) == a * 4
+    assert History.get_index_calc(1).getA() == 5
+    assert History.get_index_calc(2).getA() == 1
+    assert History.get_index_calc(3).getA() == a
 
 def test_calculator_redo_last_b(setup_history):
     '''test for changing the last calculation's b and making a new calculation'''
     assert Calculator.redoLastCalcB(1) == 5
     assert len(History.get_history()) == 3
     assert History.get_index_calc(1).getB() == 4
+    b: float = fake.random_number()
+    assert Calculator.redoLastCalcB(b) == 5 * b
+    assert History.get_index_calc(1).getB() == 4
+    assert History.get_index_calc(2).getB() == 1
+    assert History.get_index_calc(3).getB() == b
 
 def test_calculator_redo_last_operation(setup_history):
     '''test for changing the last calculation's operation and making a new calculation'''
     assert Calculator.redoLastCalcOperation(Operation.add) == 9
     assert len(History.get_history()) == 3
+    oper: Callable[[float, float], float] = fake.random_element(operationsList)
+    assert Calculator.redoLastCalcOperation(oper) == oper(5,4)
+    assert len(History.get_history()) == 4
     assert History.get_index_calc(1).getOperation().__name__ == Operation.multiply.__name__
+    assert History.get_index_calc(2).getOperation().__name__ == Operation.add.__name__
+    assert History.get_index_calc(3).getOperation().__name__ == oper.__name__
 
 def test_calculator_redo_a(setup_history):
     '''test for changing a calculation's a and making a new calculation'''
     assert Calculator.redoCalcA(History.get_last_calc(), 3) == 12
     assert len(History.get_history()) == 3
+    newa: float = fake.random_number()
+    assert Calculator.redoCalcA(History.get_last_calc(), newa) == newa * 4
+    assert len(History.get_history()) == 4
     assert History.get_index_calc(1).getA() == 5
+    assert History.get_index_calc(2).getA() == 3
+    assert History.get_index_calc(3).getA() == newa
 
 def test_calculator_redo_b(setup_history):
     '''test for changing a calculation's b and making a new calculation'''
     assert Calculator.redoCalcB(History.get_index_calc(0), 4) == 6
     assert len(History.get_history()) == 3
+    newb: float = fake.random_number()
+    assert Calculator.redoCalcB(History.get_index_calc(0), newb) == 2 + newb
+    assert len(History.get_history()) == 4
     assert History.get_index_calc(0).getB() == 3
+    assert History.get_index_calc(2).getB() == 4
+    assert History.get_index_calc(3).getB() == newb
 
 def test_calculator_redo_operation(setup_history):
     '''test for changing a calculation's operation and making a new calculation'''
     assert Calculator.redoCalcOperation(History.get_index_calc(0), Operation.subtract) == -1
     assert len(History.get_history()) == 3
     assert History.get_index_calc(0).getOperation().__name__ == Operation.add.__name__
+    oper: Callable[[float, float], float] = fake.random_element(operationsList)
+    assert Calculator.redoCalcOperation(History.get_index_calc(0), oper) == oper(2, 3)
+    assert len(History.get_history()) == 4
+    assert History.get_index_calc(0).getOperation().__name__ == Operation.add.__name__
+    assert History.get_index_calc(2).getOperation().__name__ == Operation.subtract.__name__
+    assert History.get_index_calc(3).getOperation().__name__ == oper.__name__
