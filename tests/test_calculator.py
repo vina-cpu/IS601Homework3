@@ -1,12 +1,13 @@
 '''My Tests for Operation Class and Calculation Class with Faker'''
 from typing import Callable, List
+from decimal import Decimal
 import pytest
 from faker import Faker
 from calculator.operation import Operation
 from calculator.calculation import Calculation
 
 fake = Faker()
-operationsList: List[Callable[[float, float], float]] = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide]
+operationsList: List[Callable[[Decimal, Decimal], Decimal]] = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide]
 
 def test_addition():
     '''Test for working addition function'''
@@ -19,8 +20,8 @@ def test_addition():
 
 def test_faker_addition():
     '''Test faker with addition function'''
-    a: float = fake.random_number()
-    b: float = fake.random_number()
+    a: Decimal = fake.random_number()
+    b: Decimal = fake.random_number()
     assert Operation.add(a, b) == a + b
 
 def test_subtraction():
@@ -34,8 +35,8 @@ def test_subtraction():
 
 def test_faker_subtraction():
     '''Test faker with subtraction function'''
-    a: float = fake.random_number()
-    b: float = fake.random_number()
+    a: Decimal = fake.random_number()
+    b: Decimal = fake.random_number()
     assert Operation.subtract(a, b) == a - b
 
 def test_multiplication():
@@ -48,8 +49,8 @@ def test_multiplication():
 
 def test_faker_multiplication():
     '''Test faker with multiplication function'''
-    a: float = fake.random_number()
-    b: float = fake.random_number()
+    a: Decimal = fake.random_number()
+    b: Decimal = fake.random_number()
     assert Operation.multiply(a, b) == a * b
 
 def test_division():
@@ -76,7 +77,7 @@ def test_division_by_zero():
 
 def test_faker_division_by_zero():
     '''Test faker division by zero'''
-    a: float = fake.random_number()
+    a: Decimal = fake.random_number()
     with pytest.raises(ValueError, match="Division by zero"):
         Operation.divide(a, 0)
 
@@ -86,8 +87,8 @@ def test_calculation_add():
 
 def test_faker_calculation_add():
     '''Test faker addition inside Calculation instance'''
-    a: float = fake.random_number()
-    b: float = fake.random_number()
+    a: Decimal = fake.random_number()
+    b: Decimal = fake.random_number()
     assert Calculation(a, b, Operation.add).do() == a + b
 
 def test_calculation_subtract():
@@ -96,8 +97,8 @@ def test_calculation_subtract():
 
 def test_faker_calculation_subtract():
     '''Test faker subtraction inside Calculation instance'''
-    a: float = fake.random_number()
-    b: float = fake.random_number()
+    a: Decimal = fake.random_number()
+    b: Decimal = fake.random_number()
     assert Calculation(a, b, Operation.subtract).do() == a - b
 
 def test_calculation_multiply():
@@ -106,8 +107,8 @@ def test_calculation_multiply():
 
 def test_faker_calculation_multiply():
     '''Test faker multiplication inside Calculation instance'''
-    a: float = fake.random_number()
-    b: float = fake.random_number()
+    a: Decimal = fake.random_number()
+    b: Decimal = fake.random_number()
     assert Calculation(a, b, Operation.multiply).do() == a * b
 
 def test_calculation_divide():
@@ -137,7 +138,7 @@ def test_calculation_getb():
 def test_calculation_getoperation():
     '''Test for getting operation from a Calculation instance'''
     assert Calculation(3, 1, Operation.multiply).getOperation().__name__==Operation.multiply.__name__
-    oper: Callable[[float, float], float] = fake.random_element(operationsList)
+    oper: Callable[[Decimal, Decimal], Decimal] = fake.random_element(operationsList)
     assert Calculation(1, 1, oper).getOperation().__name__ == oper.__name__
 
 def test_calculation_seta():
@@ -166,7 +167,7 @@ def test_calculation_setoperation():
     mycalc.setOperation(Operation.add)
     assert mycalc.getOperation().__name__ == Operation.add.__name__
     assert mycalc.do() == 4
-    oper: Callable[[float, float], float] = fake.random_element(operationsList)
+    oper: Callable[[Decimal, Decimal], Decimal] = fake.random_element(operationsList)
     mycalc.setOperation(oper)
     assert mycalc.getOperation().__name__ == oper.__name__
     assert mycalc.do() == oper(3, 1)

@@ -16,6 +16,9 @@
 -note: tests for the operation and calculation classes are in test_calculator.py, and tests for the history and calculator classes are in test_history.py
 The Calculator class is in __init__.py, and it is the main class for running calculations, history, and operations in one go
 
+-note: i am also convinced that my slight loss of coverage is due to the if-statements not being run if i don't run into a case it matches,
+but i don't want the test to fail either, so that is my explanation of why there is a slight loss of coverage
+
 ## requirements
 1. add, subtract, multiply, divide
 2. throw exception for divide by zero and test that the exception is thrown

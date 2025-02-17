@@ -1,18 +1,20 @@
+from decimal import Decimal
+
 class Operation:
     @staticmethod
-    def add(a: float,b: float) -> float:
+    def add(a: Decimal,b: Decimal) -> Decimal:
         return a + b
 
     @staticmethod
-    def subtract(a: float,b: float) -> float:
+    def subtract(a: Decimal,b: Decimal) -> Decimal:
         return a - b
 
     @staticmethod
-    def multiply(a: float,b: float) -> float:
+    def multiply(a: Decimal,b: Decimal) -> Decimal:
         return a * b
 
     @staticmethod
-    def divide(a: float,b: float) -> float:
+    def divide(a: Decimal,b: Decimal) -> Decimal:
         if b == 0:
             raise ValueError("Division by zero")
         return a / b;

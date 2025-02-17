@@ -1,5 +1,6 @@
 '''My Tests History Class and Calculator Class With Faker'''
 from typing import Callable, List
+from decimal import Decimal
 import pytest
 from faker import Faker
 from calculator.calculation import Calculation
@@ -8,7 +9,7 @@ from calculator.operation import Operation
 from calculator import Calculator
 
 fake = Faker()
-operationsList: List[Callable[[float, float], float]] = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide]
+operationsList: List[Callable[[Decimal, Decimal], Decimal]] = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide]
 
 @pytest.fixture
 def setup_history():
@@ -72,9 +73,9 @@ def test_get_index_calc_with_no_history(setup_history):
 def test_newcalculation():
     '''test for using newCalculation in Calculator'''
     assert Calculator.newCalculation(4, 3, Operation.add) == 7
-    a: float = fake.random_number()
-    b: float = fake.random_number() # works with 0 as well as in next test
-    oper: Callable[[float, float], float] = fake.random_element(operationsList)
+    a: Decimal = fake.random_number()
+    b: Decimal = fake.random_number() # works with 0 as well as in next test
+    oper: Callable[[Decimal, Decimal], Decimal] = fake.random_element(operationsList)
     if b == 0 and oper.__name__ == Operation.divide.__name__:
         with pytest.raises(ValueError, match="Division by zero"):
             Calculator.newCalculation(a, b, oper)
@@ -83,7 +84,7 @@ def test_newcalculation():
 
 def test_newcalculation_with_divide_by_zero():
     '''test for using newCalculation with b = 0'''
-    a: float = fake.random_number()
+    a: Decimal = fake.random_number()
     with pytest.raises(ValueError, match = "Division by zero"):
         Calculator.newCalculation(a, 0, Operation.divide)
 
@@ -91,8 +92,8 @@ def test_calculator_add(setup_history):
     '''test for using add method in Calculator'''
     assert Calculator.add(2, 3) == 5
     assert len(History.get_history()) == 3
-    a: float = fake.random_number()
-    b: float = fake.random_number()
+    a: Decimal = fake.random_number()
+    b: Decimal = fake.random_number()
     assert Calculator.add(a, b) == a + b
     assert len(History.get_history()) == 4
 
@@ -101,8 +102,8 @@ def test_calculator_subtract(setup_history):
     assert Calculator.subtract(5, 6) == -1
     assert Calculator.subtract(1, -1) == 2
     assert len(History.get_history()) == 4
-    a: float = fake.random_number()
-    b: float = fake.random_number()
+    a: Decimal = fake.random_number()
+    b: Decimal = fake.random_number()
     assert Calculator.subtract(a, b) == a - b
     assert len(History.get_history()) == 5
 
@@ -110,8 +111,8 @@ def test_calculator_multiply(setup_history):
     '''test for using multiply method in Calculator'''
     assert Calculator.multiply(1, 1) == 1
     assert len(History.get_history()) == 3
-    a: float = fake.random_number()
-    b: float = fake.random_number()
+    a: Decimal = fake.random_number()
+    b: Decimal = fake.random_number()
     assert Calculator.multiply(a, b) == a * b
     assert len(History.get_history()) == 4
 
@@ -119,13 +120,13 @@ def test_calculator_divide(setup_history):
     '''test for using divide method in Calculator'''
     assert Calculator.divide(1, 2) == 0.5
     assert len(History.get_history()) == 3
-    a: float = fake.random_number()
+    a: Decimal = fake.random_number()
     assert Calculator.divide(a, 1) == a
     assert len(History.get_history()) == 4
 
 def test_calculator_divide_by_zero(setup_history):
     '''test for using divide with zero in Calculator'''
-    a: float = fake.random_number()
+    a: Decimal = fake.random_number()
     with pytest.raises(ValueError, match = "Division by zero"):
         Calculator.divide(a, 0)
 
@@ -134,7 +135,7 @@ def test_calculator_redo_last_a(setup_history):
     assert Calculator.redoLastCalcA(1) == 4
     assert len(History.get_history()) == 3
     assert History.get_index_calc(1).getA() == 5
-    a: float = fake.random_number()
+    a: Decimal = fake.random_number()
     assert Calculator.redoLastCalcA(a) == a * 4
     assert History.get_index_calc(1).getA() == 5
     assert History.get_index_calc(2).getA() == 1
@@ -145,7 +146,7 @@ def test_calculator_redo_last_b(setup_history):
     assert Calculator.redoLastCalcB(1) == 5
     assert len(History.get_history()) == 3
     assert History.get_index_calc(1).getB() == 4
-    b: float = fake.random_number()
+    b: Decimal = fake.random_number()
     assert Calculator.redoLastCalcB(b) == 5 * b
     assert History.get_index_calc(1).getB() == 4
     assert History.get_index_calc(2).getB() == 1
@@ -155,7 +156,7 @@ def test_calculator_redo_last_operation(setup_history):
     '''test for changing the last calculation's operation and making a new calculation'''
     assert Calculator.redoLastCalcOperation(Operation.add) == 9
     assert len(History.get_history()) == 3
-    oper: Callable[[float, float], float] = fake.random_element(operationsList)
+    oper: Callable[[Decimal, Decimal], Decimal] = fake.random_element(operationsList)
     assert Calculator.redoLastCalcOperation(oper) == oper(5,4)
     assert len(History.get_history()) == 4
     assert History.get_index_calc(1).getOperation().__name__ == Operation.multiply.__name__
@@ -166,7 +167,7 @@ def test_calculator_redo_a(setup_history):
     '''test for changing a calculation's a and making a new calculation'''
     assert Calculator.redoCalcA(History.get_last_calc(), 3) == 12
     assert len(History.get_history()) == 3
-    newa: float = fake.random_number()
+    newa: Decimal = fake.random_number()
     assert Calculator.redoCalcA(History.get_last_calc(), newa) == newa * 4
     assert len(History.get_history()) == 4
     assert History.get_index_calc(1).getA() == 5
@@ -177,7 +178,7 @@ def test_calculator_redo_b(setup_history):
     '''test for changing a calculation's b and making a new calculation'''
     assert Calculator.redoCalcB(History.get_index_calc(0), 4) == 6
     assert len(History.get_history()) == 3
-    newb: float = fake.random_number()
+    newb: Decimal = fake.random_number()
     assert Calculator.redoCalcB(History.get_index_calc(0), newb) == 2 + newb
     assert len(History.get_history()) == 4
     assert History.get_index_calc(0).getB() == 3
@@ -189,7 +190,7 @@ def test_calculator_redo_operation(setup_history):
     assert Calculator.redoCalcOperation(History.get_index_calc(0), Operation.subtract) == -1
     assert len(History.get_history()) == 3
     assert History.get_index_calc(0).getOperation().__name__ == Operation.add.__name__
-    oper: Callable[[float, float], float] = fake.random_element(operationsList)
+    oper: Callable[[Decimal, Decimal], Decimal] = fake.random_element(operationsList)
     assert Calculator.redoCalcOperation(History.get_index_calc(0), oper) == oper(2, 3)
     assert len(History.get_history()) == 4
     assert History.get_index_calc(0).getOperation().__name__ == Operation.add.__name__

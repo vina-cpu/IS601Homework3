@@ -1,5 +1,6 @@
 '''My Tests for conftest.py and generating an amount of records via input with Calculator and Calculation'''
 from typing import Callable, List
+from decimal import Decimal
 import pytest
 from faker import Faker
 from calculator.operation import Operation
@@ -8,7 +9,7 @@ from calculator import Calculator
 from calculator.history import History
 
 fake = Faker()
-operationsList: List[Callable[[float, float], float]] = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide]
+operationsList: List[Callable[[Decimal, Decimal], Decimal]] = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide]
 
 def test_num_records_calculation(a, b, oper, expected):
     '''Testing all types of Calculation via faker'''
@@ -72,11 +73,11 @@ def test_num_records_calculator_redo(a, b, oper, expected):
     while new == 0:
         new = fake.random_number()
     newoper = fake.random_element(operationsList)
-    assert Calculator.redoCalcA(History.get_last_calc(), new)
-    assert Calculator.redoCalcB(History.get_index_calc(0), new)
-    assert Calculator.redoCalcOperation(History.get_index_calc(0), newoper)
+    assert Calculator.redoCalcA(History.get_last_calc(), new) == oper(new, b)
+    assert Calculator.redoCalcB(History.get_index_calc(0), new) == oper(a, new)
+    assert Calculator.redoCalcOperation(History.get_index_calc(0), newoper) == newoper(a, b)
     newoper = Operation.divide
-    assert Calculator.redoCalcOperation(History.get_index_calc(0), newoper)
+    assert Calculator.redoCalcOperation(History.get_index_calc(0), newoper) == newoper(a, b)
     new2 = 0
     with pytest.raises(ValueError, match="Division by zero"):
         Calculator.redoCalcB(History.get_last_calc(), new2)
