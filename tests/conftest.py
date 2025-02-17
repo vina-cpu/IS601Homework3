@@ -1,5 +1,6 @@
 '''Test configuration for test_for_num_records.py and new configuration to test a number of records'''
 from typing import Callable, List
+from decimal import Decimal
 import pytest
 from faker import Faker
 from calculator.operation import Operation
@@ -13,11 +14,11 @@ def pytest_addoption(parser):
 
 def new_test_data(num_records):
     '''This function makes test data for _ in range(num_records)'''
-    operationslist: List[Callable[[float, float], float]] = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide] #organized this differently than example because i am not using name of operation
+    operationslist: List[Callable[[Decimal, Decimal], Decimal]] = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide] #organized this differently than example because i am not using name of operation
     for _ in range(num_records):
-        a: float = fake.random_number()
-        b: float = fake.random_number()
-        operfunc: Callable[[float, float], float] = fake.random_element(operationslist)
+        a: Decimal = fake.random_number()
+        b: Decimal = fake.random_number()
+        operfunc: Callable[[Decimal, Decimal], Decimal] = fake.random_element(operationslist)
         try:
             expected = operfunc(a, b)
         except ValueError:
