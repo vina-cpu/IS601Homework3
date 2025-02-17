@@ -13,12 +13,11 @@ operationsList: List[Callable[[float, float], float]] = [Operation.add, Operatio
 def test_num_records_calculation(a, b, oper, expected):
     '''Testing all types of Calculation via faker'''
     newcalc = Calculation.newCalc(a, b, oper)
-    if b != 0:
-        assert newcalc.do() == expected
+    if b == 0 and oper.__name__ == Operation.divide.__name__:
+        with pytest.raises(ValueError, match="Division by zero"):
+            newcalc.do()
     else:
-        if oper.__name__ == Operation.divide.__name__:
-            with pytest.raises(ValueError, match="Division by zero"):
-                newcalc.do()
+        assert newcalc.do() == expected
 
 def test_num_records_calculation_divide_by_zero(a, b, oper, expected):
     '''Testing division by zero operation via conftest.py to show it works'''
@@ -31,13 +30,9 @@ def test_num_records_calculation_divide_by_zero(a, b, oper, expected):
 def test_num_records_calculator(a, b, oper, expected):
     '''Testing all types of Calculator methods given data from faker'''
     History.clear_history()
-    if b == 0:
-        if oper.__name__ == Operation.divide.__name__:
-            with pytest.raises(ValueError, match="Division by zero"):
-                Calculator.newCalculation(a,b,oper)
-        else:
-            assert Calculator.newCalculation(a,b,oper) == expected
-            assert len(History.get_history()) == 1
+    if b == 0 and oper.__name__ == Operation.divide.__name__:
+        with pytest.raises(ValueError, match="Division by zero"):
+            Calculator.newCalculation(a,b,oper)
     else:
         assert Calculator.newCalculation(a,b,oper) == expected
         assert len(History.get_history()) == 1
