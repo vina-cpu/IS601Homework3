@@ -19,4 +19,4 @@ def test_usecalculator_parametrized(a_str, b_str, oper_str, expected_str, capsys
     useCalculator(a_str, b_str, oper_str)
     captured = capsys.readouterr()
     assert captured.out.strip() == expected_str
-        
+       

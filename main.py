@@ -13,19 +13,21 @@ def useCalculator(a: str, b: str, operationName: str):
     try:
         mya, myb = map(Decimal, [a, b])
         operation = oper_map.get(operationName)
-        if operation:
-            print(f"The result of {a} {operationName} {b} is equal to {operation(mya, myb)}") 
-        else:
-            print(f"Unknown operation: {operationName}")    
-    # using float so don't know what the error for this would be right now
+        print(f"The result of {a} {operationName} {b} is equal to {operation(mya, myb)}")
+    except TypeError:
+        print(f"Unknown operation: {operationName}")    
     except InvalidOperation:
         print(f"Invalid number input: {a} or {b} is not a valid number.")        
     except ValueError:
         print("An error occured: Cannot divide by zero")
-    except Exception as e:
-        print(f"An error occured: {e}")   
+    #except Exception as e:
+    #    print(f"An error occured: {e}")   
 
 def main():
+    if len(sys.argv) != 4:
+        print("Usage: python/python3 main.py <number1> <number2> <operation>")
+        sys.exit(1)
+        
     _, a, b, oper = sys.argv
     useCalculator(a, b, oper)
 
