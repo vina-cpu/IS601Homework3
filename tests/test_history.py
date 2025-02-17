@@ -75,9 +75,11 @@ def test_newcalculation():
     a: float = fake.random_number()
     b: float = fake.random_number() # works with 0 as well as in next test
     oper: Callable[[float, float], float] = fake.random_element(operationsList)
-    while b == 0:
-        b = fake.random_number()
-    assert Calculator.newCalculation(a, b, oper) == oper(a, b)
+    if b == 0 and oper.__name__ == Operation.divide.__name__:
+        with pytest.raises(ValueError, match="Division by zero"):
+            Calculator.newCalculation(a, b, oper)
+    else:
+        assert Calculator.newCalculation(a, b, oper) == oper(a, b)
 
 def test_newcalculation_with_divide_by_zero():
     '''test for using newCalculation with b = 0'''
