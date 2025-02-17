@@ -73,9 +73,17 @@ def test_newcalculation():
     '''test for using newCalculation in Calculator'''
     assert Calculator.newCalculation(4, 3, Operation.add) == 7
     a: float = fake.random_number()
-    b: float = fake.random_number()
+    b: float = fake.random_number() # works with 0 as well as in next test
     oper: Callable[[float, float], float] = fake.random_element(operationsList)
+    while b == 0:
+        b = fake.random_number()
     assert Calculator.newCalculation(a, b, oper) == oper(a, b)
+
+def test_newcalculation_with_divide_by_zero():
+    '''test for using newCalculation with b = 0'''
+    a: float = fake.random_number()
+    with pytest.raises(ValueError, match = "Division by zero"):
+        Calculator.newCalculation(a, 0, Operation.divide)
 
 def test_calculator_add(setup_history):
     '''test for using add method in Calculator'''
@@ -112,6 +120,12 @@ def test_calculator_divide(setup_history):
     a: float = fake.random_number()
     assert Calculator.divide(a, 1) == a
     assert len(History.get_history()) == 4
+
+def test_calculator_divide_by_zero(setup_history):
+    '''test for using divide with zero in Calculator'''
+    a: float = fake.random_number()
+    with pytest.raises(ValueError, match = "Division by zero"):
+        Calculator.divide(a, 0)
 
 def test_calculator_redo_last_a(setup_history):
     '''test for changing the last calculation's a and making a new calculation'''
