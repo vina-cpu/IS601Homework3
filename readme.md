@@ -17,7 +17,7 @@
 -note: tests for the operation and calculation classes are in test_calculator.py, and tests for the history and calculator classes are in test_history.py
 The Calculator class is in __init__.py, and it is the main class for running calculations, history, and operations in one go
 
--note: i am also convinced that my slight loss of coverage in tests/test_for_num_records.py, tests/test_history.py, and conftest.py 
+-note: i am also convinced that my slight loss of coverage in tests/test_for_num_records.py, and conftest.py 
 is due to the if-statements and except statements not being run if i don't run into a case it matches,
 but i don't want the test to fail either, so that is my explanation of why there is a slight loss of coverage
 -for the main.py function loss of coverage, i didn't know how to test the main function itself, so that's why it is so low;
