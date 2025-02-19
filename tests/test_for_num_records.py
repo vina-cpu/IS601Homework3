@@ -20,13 +20,13 @@ def test_num_records_calculation(a, b, oper, expected):
     else:
         assert newcalc.do() == expected
 
-def test_num_records_calculation_divide_by_zero(a, b, oper, expected):
-    '''Testing division by zero operation via conftest.py to show it works'''
-    b = 0
-    oper = Operation.divide
-    newcalc = Calculation.newCalc(a, b, oper)
-    with pytest.raises(ValueError, match="Division by zero"):
-        newcalc.do()
+#def test_num_records_calculation_divide_by_zero(a, b, oper, expected):
+#    '''Testing division by zero operation via conftest.py to show it works'''
+#    b = 0
+#    oper = Operation.divide
+#    newcalc = Calculation.newCalc(a, b, oper)
+#    with pytest.raises(ValueError, match="Division by zero"):
+#        newcalc.do()
 
 def test_num_records_calculator(a, b, oper, expected):
     '''Testing all types of Calculator methods given data from faker'''
@@ -38,13 +38,13 @@ def test_num_records_calculator(a, b, oper, expected):
         assert Calculator.newCalculation(a,b,oper) == expected
         assert len(History.get_history()) == 1
 
-def test_num_records_calculator_division_by_zero(a, b, oper, expected):
-    '''Testing division by zero with Calculator methods given data from faker'''
-    History.clear_history()
-    b = 0
-    oper = Operation.divide
-    with pytest.raises(ValueError, match="Division by zero"):
-        Calculator.newCalculation(a,b,oper)
+#def test_num_records_calculator_division_by_zero(a, b, oper, expected):
+#    '''Testing division by zero with Calculator methods given data from faker'''
+#    History.clear_history()
+#    b = 0
+#    oper = Operation.divide
+#    with pytest.raises(ValueError, match="Division by zero"):
+#        Calculator.newCalculation(a,b,oper)
 
 def test_num_records_calculator_redo_last(a, b, oper, expected):
     '''Testing all redo calc functions with faker data'''

@@ -31,6 +31,7 @@ def pytest_generate_tests(metafunc):
     '''This function takes all of the data that's in newparameters and puts it into anything that looks like "a,b,oper,expected" like in metafunc.parametrize'''
     if {"a", "b", "expected"}.intersection(set(metafunc.fixturenames)): #this checks if test is expecting any of these dynamically generated fixtures
         num_records = metafunc.config.getoption("num_records") # this is from the pytest_addoption function where we get this value
-        parameters = list(new_test_data(num_records))
+        parameters = list(new_test_data(num_records - 1))
+        parameters.append((1, 0, Operation.divide, "ValueError: Division by zero")) #manually added a test that was getting missed all the time
         metafunc.parametrize("a,b,oper,expected", parameters) # parameterize is spelled parametrize !!!
         # this metafunc.parameterize is setting a, b, operation, expected in a test to these values

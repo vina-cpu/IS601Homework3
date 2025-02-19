@@ -20,16 +20,15 @@ def useCalculator(a: str, b: str, operationName: str):
         print(f"Invalid number input: {a} or {b} is not a valid number.")        
     except ValueError:
         print("An error occured: Cannot divide by zero")
-    #except Exception as e:
-    #    print(f"An error occured: {e}")   
+    except Exception as e: #line missed in cov - don't know how to test this
+        print(f"An error occured: {e}") #line missed in cov - don't know how to test this
 
-def main():
-    if len(sys.argv) != 4:
+def main(): # not testing this - missed in cov - don't know how to test for this case
+    if len(sys.argv) != 4: #cna't test for this line
         print("Usage: python/python3 main.py <number1> <number2> <operation>")
-        sys.exit(1)
-        
+        sys.exit(1) 
     _, a, b, oper = sys.argv
     useCalculator(a, b, oper)
 
 if __name__ == '__main__':
-    main()
+    main() #line missed in cov - don't know how to test this

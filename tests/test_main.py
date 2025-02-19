@@ -11,7 +11,9 @@ from main import useCalculator
     ("1", "0", 'divide', "An error occured: Cannot divide by zero"),
     ("9", "3", 'unknown', "Unknown operation: unknown"),
     ("a", "3", 'add', "Invalid number input: a or 3 is not a valid number."),
-    ("5", "b", 'subtract', "Invalid number input: 5 or b is not a valid number.")
+    ("5", "b", 'subtract', "Invalid number input: 5 or b is not a valid number."),
+    #
+    (0, "2", 'add', "The result of 0 add 2 is equal to 2")
 ])
 
 def test_usecalculator_parametrized(a_str, b_str, oper_str, expected_str, capsys):
