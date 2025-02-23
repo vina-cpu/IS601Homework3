@@ -26,9 +26,8 @@ def test_interface_start_exit_command(monkeypatch):
     #this is SIMULATING USER
     monkeypatch.setattr('builtins.input', lambda _: 'exit')
     inter = Interface()
-    with pytest.raises(SystemExit) as e:
+    with pytest.raises(SystemExit):
         inter.start()
-    assert e.type == SystemExit
     
     
     
