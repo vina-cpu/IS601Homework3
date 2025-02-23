@@ -2,8 +2,10 @@ import sys
 from typing import Callable, List
 from decimal import Decimal, InvalidOperation
 from calculator import Calculator
+from interface import Interface
+from command import Command, AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 
-def useCalculator(a: str, b: str, operationName: str):
+"""def useCalculator(a: str, b: str, operationName: str):
     oper_map = {
         'add': Calculator.add,
         'subtract': Calculator.subtract,
@@ -28,7 +30,9 @@ def main(): # not testing this - missed in cov - don't know how to test for this
         print("Usage: python/python3 main.py <number1> <number2> <operation>")
         sys.exit(1) 
     _, a, b, oper = sys.argv
-    useCalculator(a, b, oper)
+    useCalculator(a, b, oper)"""
 
 if __name__ == '__main__':
-    main() #line missed in cov - don't know how to test this
+    mainProgram: Interface = Interface.newInterface()
+    mainProgram.start()
+    
