@@ -5,7 +5,12 @@ from calculator import Calculator
 from interface import Interface
 from command import Command, AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 
-"""def useCalculator(a: str, b: str, operationName: str):
+if __name__ == '__main__':
+    mainProgram: Interface = Interface.newInterface()
+    mainProgram.start()
+
+""" This is previous functionality
+def useCalculator(a: str, b: str, operationName: str):
     oper_map = {
         'add': Calculator.add,
         'subtract': Calculator.subtract,
@@ -31,8 +36,3 @@ def main(): # not testing this - missed in cov - don't know how to test for this
         sys.exit(1) 
     _, a, b, oper = sys.argv
     useCalculator(a, b, oper)"""
-
-if __name__ == '__main__':
-    mainProgram: Interface = Interface.newInterface()
-    mainProgram.start()
-    
