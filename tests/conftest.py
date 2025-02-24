@@ -19,6 +19,7 @@ def new_test_data(num_records):
         a: Decimal = fake.random_number()
         b: Decimal = fake.random_number()
         operfunc: Callable[[Decimal, Decimal], Decimal] = fake.random_element(operationslist)
+        expected = 0
         try:
             expected = operfunc(a, b)
         except ValueError:
