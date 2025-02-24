@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from calculator import Calculator
-from command import Command, AddCommand, SubtractCommand, MultiplyCommand, DivideCommand, ExitCommand
+from command import Command, AddCommand, SubtractCommand, MultiplyCommand, DivideCommand, ExitCommand, MenuCommand
 
 class Interface:
     def __init__(self):
@@ -11,15 +11,15 @@ class Interface:
         return Interface()
     
     def start(self):
-        print("Hello! Type calculator commands to utilize the calculator, or type 'exit' to exit!")
+        print("Hello! Type calculator commands to utilize the calculator, type 'menu' for a full list of commands, or type 'exit' to exit!")
         
         self.commandHandler.regCommand("add", AddCommand())
         self.commandHandler.regCommand("subtract", SubtractCommand())
         self.commandHandler.regCommand("multiply", MultiplyCommand())
         self.commandHandler.regCommand("divide", DivideCommand())
+        self.commandHandler.regCommand("menu", MenuCommand())
         self.commandHandler.regCommand("exit", ExitCommand())
         
-        print("Type 'exit' to exit")
         while True:
             self.commandHandler.executeCommand(input(">>> ").strip())
 
