@@ -3,7 +3,7 @@ from typing import Callable, List
 from decimal import Decimal, InvalidOperation
 from calculator import Calculator
 from interface import Interface
-from command import Command, AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
+#from command import Command, AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 
 if __name__ == '__main__':
     mainProgram: Interface = Interface.newInterface()

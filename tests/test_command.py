@@ -1,7 +1,12 @@
 '''Tests for Command Design Pattern'''
 import pytest
 from interface import Interface
-from command import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand, MenuCommand, ExitCommand
+from plugins.add import AddCommand
+from plugins.subtract import SubtractCommand
+from plugins.multiply import MultiplyCommand
+from plugins.divide import DivideCommand
+from plugins.menu import MenuCommand
+from plugins.exit import ExitCommand
 #cov due to all the try excepts which will be fixed in final submission
 
 def test_add_command(capfd, monkeypatch):
