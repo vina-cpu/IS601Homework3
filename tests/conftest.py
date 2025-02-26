@@ -19,7 +19,7 @@ def new_test_data(num_records):
         a: Decimal = fake.random_number()
         b: Decimal = fake.random_number()
         operfunc: Callable[[Decimal, Decimal], Decimal] = fake.random_element(operationslist)
-        expected = 0
+        expected = 0 #occasionally would give me an error that i am yielding expected before declaring anything so i thought i would declare it first
         try:
             expected = operfunc(a, b)
         except ValueError:
