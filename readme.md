@@ -1,4 +1,5 @@
 # Homework 3 Calculator
+# This is Homework 4 checkpoint
 
 # Project Install Instructions
 
@@ -20,6 +21,8 @@ The Calculator class is in __init__.py, and it is the main class for running cal
 -note: i am also convinced that my slight loss of coverage in tests/test_for_num_records.py, and conftest.py 
 is due to the if-statements and except statements not being run if i don't run into a case it matches,
 but i don't want the test to fail either, so that is my explanation of why there is a slight loss of coverage
+-test_command.py doesn't get to the exception case in plugins/add, plugins/subtract, plugins/multiply, and plugins/divide, 
+so that explains the loss of coverage there as well; goes through all other cases though
 -for the main.py function loss of coverage, i didn't know how to test the main function itself, so that's why it is so low;
 i also was not able to figure out how to trigger the exception as {e} exception case, so that accounts for another missed line
 
