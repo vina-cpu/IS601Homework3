@@ -15,8 +15,6 @@ class SubtractCommand(Command):
             print(f"The result of {num1} subtract {num2} is equal to {result}")
         except InvalidOperation:
             print(f"Invalid number input: {num1str} or {num2str} is not a valid number.")        
-        except ValueError:
-            print("An error occured: Cannot divide by zero")
         except Exception as e: #line missed in cov - don't know how to test this
             print(f"An error occured: {e}") #line missed in cov - don't know how to test this 
 
