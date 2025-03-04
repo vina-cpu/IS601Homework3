@@ -1,3 +1,4 @@
+import logging
 import importlib
 import pkgutil
 import plugins
@@ -19,6 +20,7 @@ class CommandHandler():
             self.commands[commandName].execute()
         except KeyError:
             print(f"No such command: {commandName}")
+            logging.error(f"No such command: {commandName}")
     
     def loadCommands(self):
         '''adds all of the plugins in plugins'''
@@ -26,3 +28,4 @@ class CommandHandler():
             module = importlib.import_module(f"plugins.{name}.__init__")
             if hasattr(module, "command"):
                 self.regCommand(name, module.command)
+                logging.info(f"{name} command loaded")
