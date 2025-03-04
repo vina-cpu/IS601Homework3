@@ -1,3 +1,4 @@
+import logging
 from interface import Command
 
 class MenuCommand(Command):
@@ -8,5 +9,6 @@ class MenuCommand(Command):
         print("Type 'multiply' to multiply two numbers")
         print("Type 'divide' to divide two numbers")
         print("Type 'exit' to exit")
+        logging.info("Menu printed")
 
 command = MenuCommand()
