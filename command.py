@@ -1,8 +1,3 @@
-#import sys
-#from abc import ABC, abstractmethod
-#from decimal import Decimal, InvalidOperation
-#from calculator import Calculator
-#abc is abstract base class which allows me to use this pattern thingy 
 import importlib
 import pkgutil
 import plugins
