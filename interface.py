@@ -1,5 +1,6 @@
 import os
 import logging
+from dotenv import load_dotenv
 from datetime import datetime
 from calculator import Calculator
 from command import Command, CommandHandler
@@ -7,6 +8,8 @@ from command import Command, CommandHandler
 class Interface:
     def __init__(self):
         self.configLogging()
+        load_dotenv()
+        self.myEnvironment = self.loadEnv()
         self.commandHandler = CommandHandler()
     
     @staticmethod
@@ -24,7 +27,14 @@ class Interface:
             filename=logFile
         )
         logging.info("Logging configured")
+        
+    def loadEnv(self):
+        logging.info("Environment variable loaded")
+        return {key: value for key, value in os.environ.items()} #wanted to do it this way so i didn't share anything in env file
     
+    def getEnv(self):
+        return self.myEnvironment.get()
+
     def start(self):
         print("Hello! Type calculator commands to utilize the calculator, type 'menu' for a full list of commands, or type 'exit' to exit!")
         self.commandHandler.loadCommands()
