@@ -26,6 +26,8 @@ so that explains the loss of coverage there as well; goes through all other case
 -for the main.py function loss of coverage, i didn't know how to test the main function itself, so that's why it is so low;
 i also was not able to figure out how to trigger the exception as {e} exception case, so that accounts for another missed line
 
+-note about build, had to make it ignore log and environment testing, because i didn't push those things (for obvious reasons), but they do pass on my local environment
+
 
 ## requirements
 1. add, subtract, multiply, divide
