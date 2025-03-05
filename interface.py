@@ -9,6 +9,7 @@ class Interface:
     def __init__(self):
         self.configLogging()
         load_dotenv()
+        self.myEnvironment: str = "default"
         self.myEnvironment: str = self.loadEnv()
         self.commandHandler = CommandHandler()
     
